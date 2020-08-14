@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+<head>
+    {% block script%}
+    <script type="text/javascript">
+
+        function toggleAddMeds() {
+            var myList = document.getElementById('addNewMeds');
+            var confirm_button = document.getElementById('confirmAdd');
+     
+            var displaySetting = myList.style.display;
+
+            if (displaySetting == 'none') {
+                // clock is visible. hide it
+                myList.style.display = 'block';
+                confirm_button.style.display = 'none';
+            }
+        }
+    </script>
+    {% endblock %}
+</head>
+
+
+<body>
+{% block wrapper %}
+    <h3>Your next reminder time is scheduled at:</h3>
+    <h2>{{day}}</h2>
+    <h2>{{date}}</h2>
+    <font size="+4">{{time}}</font>
+    <br />
+
+    <center> <h1>This is your current medication list:</h1></center>
+    <table>
+        <tr>
+            <th>Medication</th>
+            <th>Dosage</th>
+            <th>Frequency</th>
+        </tr>
+        {% for i in output %}
+        <tr>
+            {% for j in i %}
+            <td>{{j}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <div id="confirmAdd">
+        <center> <h2>Would you like to add additional medications?</h2></center>
+        <center>
+            <a href="#" onclick="toggleAddMeds()" class="buttons">Ok</a>
+            <a href="/" class="buttons" style="background-color:#9FC3E5">Cancel</a>
+        </center>
+    </div>
+
+    <div class="form-meds" id="addNewMeds" style="display:none">
+        <form action="addNewMeds" method="post">
+            <p>Prescription Name: </p>
+            <input type="text" name="meds" placeholder="Prescription Name" />
+            <br />
+            <p>Dosage:</p>
+            <input type="number" name="dose" placeholder="Dosage" />
+            <select id="units" name="dose units">
+                <option value="mg">mg</option>
+                <option value="oz">oz</option>
+            </select>
+            <p>Frequency:</p>
+            <select id="freq" name="freq">
+                <option value="daily">Daily</option>
+                <option value="twice daily">Twice Daily</option>
+                <option value="every other day">Every other day</option>
+                <option value="7-10 days">7-10 days</option>
+                <option value="as needed">As needed</option>
+            </select>
+
+            <br />
+            <br />
+            <button type="submit" name="submit">Add</button>
+        </form>
+    </div>
+{% endblock %}
+
+</body>
+</html>
