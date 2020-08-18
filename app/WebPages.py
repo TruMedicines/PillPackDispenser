@@ -2,8 +2,8 @@ from flask import Flask, render_template, redirect, url_for, send_file, render_t
 from datetime import datetime, timedelta
 from flask import jsonify
 from flaskwebgui import FlaskUI 
-from flask_mail import Message
-from flask_mail import Mail
+#from flask_mail import Message
+#from flask_mail import Mail
 from flask_apscheduler import APScheduler
 import webbrowser
 #import CompiledCode as cc
@@ -15,9 +15,9 @@ from pyshortcuts import make_shortcut
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456'
-mail = Mail(app)
+#mail = Mail(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-ui = FlaskUI(app, fullscreen=False, maximized=False)
+ui = FlaskUI(app, fullscreen=False, maximized=False, height = 900, width = 600)
 
 
 # Set up title, headers, etc for home page
