@@ -17,6 +17,6 @@ make_shortcut('/Users/Charlie/Desktop/PillPackDispenser/app/app.py', name='Pill 
                         icon='/Users/Charlie/Desktop/PillPackDispenser/app/app_icon')
 
 if __name__ == '__main__':
-    webp.ui.run()
+    webp.app.run(debug=True)
 
  

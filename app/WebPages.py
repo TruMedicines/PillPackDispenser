@@ -56,7 +56,8 @@ def home():
 
 @app.route("/takeMeds")
 def runDispenser():
-    return render_template('loading_page.html')
+    url = "https://us-east-1.sumerian.aws/d4ef821377ba42ed93c80724dc205694.scene"
+    return render_template('loading_page.html', iframe = url)
 
 @app.route("/results")
 def results():
