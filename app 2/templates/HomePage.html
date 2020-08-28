@@ -1,0 +1,93 @@
+﻿<html>
+{% extends "base.html" %}
+<head>
+    {% block script %}
+    <script>
+        function check() {
+            var timeTakePills = '{{pillBtn}}';
+            var flag = (timeTakePills == 'True');
+            var element = document.getElementById("takePillsBtn");
+            if (flag) {
+                element.setAttribute("href");
+            } else {
+                element.removeAttribute("href");
+                element.style.color = 'grey';
+            }
+        }
+        
+        </script>
+
+    {% endblock %}
+
+</head>
+
+
+<body>
+    {% block wrapper%}
+    <h3>Your next reminder time is scheduled at:</h3>
+    <h2>{{day}}</h2>
+    <h2>{{date}}</h2>
+    <font size="+4">{{time}}</font>
+
+
+    <div class="top_box">
+        <a href="/takeMeds" id="takePillsBtn" onclick="check()">
+            <div class="box" >
+
+                <i class="fas fa-pills fa-5x"></i>
+                <h2>Take Medication</h2>
+            </div>
+
+        </a>
+    </div>
+
+    <div class="main_boxes">
+        <a href="/list">
+            <div class="box">
+
+                <i class="fas fa-search fa-4x"></i>
+                <h3>View Meds</h3>
+            </div>
+        </a>
+
+        <a href="#">
+            <div class="box">
+
+                <i class="fas fa-plus-square fa-4x"></i>
+                <h3>Add New Roll</h3>
+            </div>
+        </a>
+
+        <a href="/addMeds">
+            <div class="box">
+
+                <i class="fas fa-prescription-bottle-alt fa-4x"></i>
+                <h3>Add New Meds</h3>
+            </div>
+        </a>
+
+        <a href="/popup">
+            <div class="box">
+
+                <i class="fas fa-cog fa-4x"></i>
+                <h3>Settings</h3>
+            </div>
+        </a>
+
+
+    </div>
+    <div class="top_box">
+        <a href="/processing">
+            <div class="box">
+                <h3>Click Here to Test Image Processing</h3>
+            </div>
+
+        </a>
+    </div>
+
+    {% endblock %}
+
+
+
+</body>
+</html>
