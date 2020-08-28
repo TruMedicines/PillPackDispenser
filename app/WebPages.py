@@ -1,11 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, send_file, render_template_string, request, flash
 from datetime import datetime, timedelta
 from flask import jsonify
-from flaskwebgui import FlaskUI 
-#from flask_mail import Message
-#from flask_mail import Mail
-from flask_apscheduler import APScheduler
-import webbrowser
+from flaskwebgui import FlaskUI
+from flask_ask import Ask, statement, question, session
+from flask_mail import Message
+from flask_mail import Mail
 #import CompiledCode as cc
 import nextPill 
 import time
@@ -15,9 +14,10 @@ from pyshortcuts import make_shortcut
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456'
-#mail = Mail(app)
+mail = Mail(app)
+ask = Ask(app, "/")
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-ui = FlaskUI(app, fullscreen=False, maximized=False, height = 900, width = 600)
+ui = FlaskUI(app, fullscreen=False, maximized=False)
 
 
 # Set up title, headers, etc for home page
@@ -56,8 +56,7 @@ def home():
 
 @app.route("/takeMeds")
 def runDispenser():
-    url = "https://us-east-1.sumerian.aws/d4ef821377ba42ed93c80724dc205694.scene"
-    return render_template('loading_page.html', iframe = url)
+    return render_template('loading_page.html')
 
 @app.route("/results")
 def results():
@@ -111,8 +110,8 @@ def handle_data():
     print(name)
     print(email)
     print(message)
-    #msg = Message(message, sender=(name, email),recipients=["charliefisher11@icloud.com"])
-    #mail.send(msg)
+    msg = Message(message, sender=(name, email),recipients=["charliefisher11@icloud.com"])
+    mail.send(msg)
     return render_template('sent_email.html')
 
 def list_csv(csvfile):
@@ -176,24 +175,6 @@ def addNewUser():
             writer.writerow(info)
     return render_template('confirmSignUp.html', **templateData)
 
-
-def alarm():
-    
-    url = str('https://stackoverflow.com/questions/35168508/raw-input-is-not-defined')
-
-    Actual_Time = time.strftime("%I:%M:%S%p")
-     
-    # This is the while loop that'll print the time
-    # until it's value will be equal to the alarm time
-    if (Actual_Time != Set_Alarm):
-        print("The time is " + Actual_Time)
-        time.sleep(2)
-     
-    # This if statement plays the role when its the
-    # alarm time and executes the code within it.
-    if (Actual_Time == Set_Alarm):
-        webbrowser.open(url)
-
 def update_time():
     now = datetime.now()
     time = now.strftime("%-I:%M %p")
@@ -211,11 +192,54 @@ def get_info():
         info = output[-1]
         return info
 
-scheduler = APScheduler()
+#Alexa skills portion
+@ask.launch
+def start_skill():
+    welcome_message = 'Hi ' + name + ', what would you like to do?'
+    return question(welcome_message)
+
+@ask.intent("DispensePillIntent")
+def dispensepills():
+    msg = 'Okay, I am dispensing your pills now.'
+    return statement(msg)
+
+@ask.intent("ChangePillTimeIntent")
+def changepilltime():
+    msg = 'Okay, pill time is change to 9:00 am.'
+    return statement(msg)
+    
+@ask.intent("GetPillTimeIntent")
+def getpilltime():
+    msg = 'Your schedule medication time is at' + Set_Alarm
+    return statement(msg)
+
+@ask.intent("AMAZON.CancelIntent")
+def cancel():
+    msg = 'Okay. Canceling.'
+    return statement(msg)
+
+@ask.intent("AMAZON.HelpIntent")
+def help():
+    msg = 'What do you need help with?'
+    return question(msg)
+
+@ask.intent("AMAZON.StopIntent")
+def stop_alexa():
+    msg = 'Okay. Stopping.'
+    return statement(msg)
+    
+@ask.intent("AMAZON.NavigateHomeIntent")
+def go_home():
+    msg = 'Okay, navigating you home.'
+    return statement(msg), rende
+
+# Gets user info
 user = np.empty(8, dtype=object)
 user = get_info()
+name = user[0]
 timeStr = user[5] + user[6] + user[7]
 timeStr = datetime.strptime(timeStr,'%I%M%p')
 Set_Alarm = timeStr.strftime("%I:%M:%S %p")
 rmdrFreq = user[8]
+
 

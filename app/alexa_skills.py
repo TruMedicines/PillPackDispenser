@@ -5,39 +5,49 @@ import requests
 import time
 import unidecode
 
+
 app = Flask(__name__)
 ask = Ask(app, "/")
 
-def get_headlines():
-    user_pass_dict = {'user': 'USERNAME',
-                      'passwd': 'PASSWORD',
-                      'api_type': 'json'}
-    sess = requests.Session()
-    sess.headers.update({'User-Agent': 'Test code'})
-    sess.post('https://www.reddit.com/api/login', data = user_pass_dict)
-    time.sleep(1)
-    url = 'https://reddit.com/r/worldnews/.json?limit=10'
-    html = sess.get(url)
-    data = json.loads(html.content.decode('utf-8'))
-    titles = [unidecode.unidecode(listing['data']['title']) for listing in data['data']['children']]
-    titles = '... '.join([i for i in titles])
-    return titles
-
-@ask.lauch
+@ask.launch
 def start_skill():
-    welcome_message = 'Hello there, would you like the news?'
+    welcome_message = 'Hello there, what would you like to do?'
     return question(welcome_message)
 
-@ask.intent("YesIntent")
-def share_headlines():
-    headlines = get_headlines()
-    headline_msg = 'The current world news headlines are {}'.format(headlines)
-    return statement(headline_msg)
+@ask.intent("DispensePillIntent")
+def dispensepills():
+    msg = 'Okay, I am dispensing your pills now.'
+    return statement(msg)
 
-@ask.intent("NoIntent")
-def no_intent():
-    bye_text = 'Okay, not sure why called me then'
-    return statement(headline_msg)
+@ask.intent("ChangePillTimeIntent")
+def changepilltime():
+    msg = 'Okay, pill time is change to 9:00 am.'
+    return statement(msg)
     
+@ask.intent("GetPillTimeIntent")
+def getpilltime():
+    msg = 'Your schedule medication time is at 9:00 am.'
+    return statement(msg)
+
+@ask.intent("AMAZON.CancelIntent")
+def cancel():
+    msg = 'Your schedule medication time is at 9:00 am.'
+    return statement(msg)
+
+@ask.intent("AMAZON.HelpIntent")
+def help():
+    msg = 'Your schedule medication time is at 9:00 am.'
+    return statement(msg)
+
+@ask.intent("AMAZON.StopIntent")
+def stop_alexa():
+    msg = 'Your schedule medication time is at 9:00 am.'
+    return statement(msg)
+    
+@ask.intent("AMAZON.NavigateHomeIntent")
+def go_home():
+    msg = 'Your schedule medication time is at 9:00 am.'
+    return statement(msg)
+
 if __name__ == '__main__':
     app.run(debug = True)
