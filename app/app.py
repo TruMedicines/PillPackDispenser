@@ -31,7 +31,7 @@ my_config = Config(
 
 client = boto3.client('polly', config=my_config)
 text = "hello there"
-response = client.synthesize_speech(Text=text, VoiceId='Salli', OutputFormat='mp3')
+response = client(Text=text, VoiceId='Salli', OutputFormat='mp3')
 
 
 if __name__ == '__main__':
