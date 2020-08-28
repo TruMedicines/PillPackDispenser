@@ -12,9 +12,9 @@ def find_all(name, path):
 def check_current_audio():
     dir_path = os. getcwd()
     print(dir_path)
-    hello = find_all("hello.mp3", "audio_files")
-    getpilltime = find_all("getpilltime.mp3", "audio_files")
-    dispense = find_all("dispense.mp3", "audio_files")
+    hello = find_all("hello.mp3", "animation_audio")
+    getpilltime = find_all("getpilltime.mp3", "animation_audio")
+    dispense = find_all("dispense.mp3", "animation_audio")
     
     if not hello:
         text = '"Hi "' + webp.name + '". How can I help you?"'
