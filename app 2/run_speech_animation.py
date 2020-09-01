@@ -4,7 +4,13 @@ import os, sys
 from PIL import Image
 from argparse import ArgumentParser
 
-va = sda.VideoAnimator(gpu=-1, model_path="timit")# Instantiate the animator
+parser = ArgumentParser()
+parser.add_argument("--input", required=True, help="audio to render")
+parser.set_defaults(verbose=False)
+opt = parser.parse_args()
+print(opt)
+
+va = sda.VideoAnimator(gpu=-1, model_path="grid")# Instantiate the animator
 
 vid, aud = va("example/image.bmp", "example/audio/speech1.mp3")
 
