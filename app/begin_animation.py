@@ -17,13 +17,14 @@ def check_current_audio():
     dispense = find_all("dispense.mp3", "animation_audio")
     
     if not hello:
+        #creates speech with Amazon Polly
         text = '"Hi "' + webp.name + '". How can I help you?"'
         command = 'aws polly synthesize-speech --output-format "mp3" --engine neural --voice-id "Salli" --text '
         filename = ' audio_files/hello.mp3'
         command = command + text + filename
         subprocess.call(command, shell=True)
         
-        #create talking avatar from speech
+        #creates talking avatar from speech
         
 
     if not dispense:
