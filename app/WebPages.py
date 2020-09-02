@@ -201,7 +201,8 @@ def start_skill():
 @ask.intent("DispensePillIntent")
 def dispensepills():
     msg = 'Okay, I am dispensing your pills now.'
-    return statement(msg)
+    return render_template(), iframe = "hello.mp4"
+    #return statement(msg)
 
 @ask.intent("ChangePillTimeIntent")
 def changepilltime():
