@@ -20,23 +20,24 @@ def check_current_audio():
         #creates speech with Amazon Polly
         text = '"Hi "' + webp.name + '". How can I help you?"'
         command = 'aws polly synthesize-speech --output-format "mp3" --engine neural --voice-id "Salli" --text '
-        filename = ' animation_audio/hello.mp3'
+        filename = ' audio_files/hello.mp3'
         command = command + text + filename
         subprocess.call(command, shell=True)
         
         #creates talking avatar from speech
-    
+        
+
     if not dispense:
         text = '"Okay, I am dispensing your pills now."'
         command = 'aws polly synthesize-speech --output-format "mp3" --engine neural --voice-id "Salli" --text '
-        filename = ' animation_audio/dispense.mp3'
+        filename = ' audio_files/dispense.mp3'
         command = command + text + filename
         subprocess.call(command, shell=True)
 
     if not getpilltime:
         text = '"Your scheduled medication time is at {}"'.format(webp.Set_Alarm)
         command = 'aws polly synthesize-speech --output-format "mp3" --engine neural --voice-id "Salli" --text '
-        filename = ' animation_audio/getpilltime.mp3'
+        filename = ' audio_files/getpilltime.mp3'
         command = command + text + filename
         subprocess.call(command, shell=True)
 
