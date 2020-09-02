@@ -38,7 +38,7 @@ driving_video = [resize(frame, (256, 256))[..., :3] for frame in driving_video]
 print("loaded video")
 
 generator, kp_detector = load_checkpoints(config_path='config/vox-256.yaml', 
-                            checkpoint_path='checkpoints/vox-cpk.pth.tar', cpu=True)
+                            checkpoint_path='checkpoints/model1.tar', cpu=True)
 
 print("created model")
 
