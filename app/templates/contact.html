@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+    {% block wrapper %}
+<div class="form-box">
+    <p>SEND E-MAIL</p>
+    <form action="handle_data" method="post">
+        <input type="text" name="name" placeholder="Full name" />
+        <br />
+        <input type="text" name="email" placeholder="Email" />
+        <br />
+        <textarea name="message" placeholder="Message"></textarea>
+        <br />
+        <button type="submit" name="submit">CONTACT</button>
+    </form>
+</div>
+    {% endblock %}
+</html>

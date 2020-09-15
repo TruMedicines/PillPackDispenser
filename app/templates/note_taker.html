@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+<body>
+    {% block wrapper %}
+    <h3>Your next reminder time is scheduled at:</h3>
+    <h2>{{day}}</h2>
+    <h2>{{date}}</h2>
+    <font size="+4">{{time}}</font>
+    <table>
+        <tr>
+            <th>Date </th>
+            <th>Symptom </th>
+        </tr>
+        {% for i in output %}
+        <tr>
+            {% for j in i %}
+            <td>{{j}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% endblock %}
+</body>
+</html>

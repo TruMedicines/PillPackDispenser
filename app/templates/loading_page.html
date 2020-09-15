@@ -1,0 +1,12 @@
+﻿<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+<body>
+    {% block wrapper %}
+
+        <iframe src="{{ url_for('static', filename='/test_short.mp4') }}" allow="autoplay; fullscreen" controls> </iframe>
+
+    {% endblock %}
+
+</body>
+</html>
